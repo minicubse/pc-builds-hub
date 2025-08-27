@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import Navigation from "@/components/Navigation";
 import PropositionCard from "@/components/PropositionCard";
 import { mockPropositions } from "@/data/mockData";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { 
   Monitor, 
   HardDrive, 
@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 const Index = () => {
+  const navigate = useNavigate();
   const featuredPropositions = mockPropositions.slice(0, 3);
   const stats = {
     totalPropositions: 1247,
@@ -69,11 +70,11 @@ const Index = () => {
             Partagez, votez et découvrez les meilleures propositions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-primary shadow-glow">
+            <Button size="lg" className="bg-gradient-primary shadow-glow" onClick={() => navigate('/configurations')}>
               Découvrir les configs
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" onClick={() => navigate('/configurations')}>
               Rejoindre la communauté
             </Button>
           </div>
@@ -154,7 +155,7 @@ const Index = () => {
               <PropositionCard
                 key={proposition.id}
                 {...proposition}
-                onClick={() => {/* Navigation vers la page de la proposition */}}
+                onClick={() => navigate(`/proposition/${proposition.id}`)}
               />
             ))}
           </div>
@@ -170,10 +171,10 @@ const Index = () => {
             dans leurs choix hardware.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-primary shadow-glow">
+            <Button size="lg" className="bg-gradient-primary shadow-glow" onClick={() => navigate('/configurations')}>
               Créer un compte
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" onClick={() => navigate('/configurations')}>
               Proposer une config
             </Button>
           </div>
