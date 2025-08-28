@@ -9,12 +9,22 @@ import Navigation from "@/components/Navigation";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { useEffect } from "react";
 
 const Auth = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // Check if user is already logged in
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        navigate("/");
+      }
+    });
+  }, [navigate]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,6 +70,10 @@ const Auth = () => {
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/`,
+          data: {
+            username: email.split('@')[0], // Use email prefix as username
+            full_name: email.split('@')[0],
+          }
         },
       });
 
@@ -122,7 +136,7 @@ const Auth = () => {
                     <Input
                       id="signin-email"
                       type="email"
-                      placeholder="votre@email.com"
+                      placeholder="minicubse@admin.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -133,11 +147,14 @@ const Auth = () => {
                     <Input
                       id="signin-password"
                       type="password"
-                      placeholder="••••••••"
+                      placeholder="minicubse"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Compte admin test : minicubse@admin.com / minicubse
                   </div>
                   <Button 
                     type="submit" 
