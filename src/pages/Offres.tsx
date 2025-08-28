@@ -77,7 +77,10 @@ const Offres = () => {
             </p>
           </div>
           
-          <Button className="bg-gradient-accent shadow-glow">
+          <Button 
+            className="bg-gradient-accent shadow-glow"
+            onClick={() => navigate('/auth')}
+          >
             <Plus className="h-4 w-4 mr-2" />
             Partager une offre
           </Button>

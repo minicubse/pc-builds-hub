@@ -64,7 +64,12 @@ const Navigation = () => {
               <Search className="h-4 w-4" />
             </Button>
             
-            <Button variant="ghost" size="sm" className="hidden sm:flex">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="hidden sm:flex"
+              onClick={() => window.location.href = '/auth'}
+            >
               <LogIn className="h-4 w-4 mr-2" />
               Connexion
             </Button>
